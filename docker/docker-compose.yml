@@ -1,0 +1,21 @@
+version: '3'
+services:
+ mysql_database:
+  image: "mysql:${SQL_VERSION}"
+  container_name: "${SQL_CONTAINER_NAME}"
+  env_file: ${SQL_ENV}
+  ports: 
+   - ${SQL_PORT}:3306
+  volumes:
+   - "${SQL_DATA}:/var/lib/mysql"
+  restart: ${SQL_RESTART_POLICY}
+ redis:
+  image: "redis:${REDIS_VERSION}"
+  container_name: "${REDIS_CONTAINER_NAME}"
+  command: redis-server
+  ports:
+   - ${REDIS_PORT}:6379
+  volumes:
+   - "${REDIS_DATA}:/data"
+  restart: ${REDIS_RESTART_POLICY}
+   
