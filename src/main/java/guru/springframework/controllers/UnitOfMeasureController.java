@@ -4,6 +4,7 @@ import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.services.UnitOfMeasureService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -17,24 +18,28 @@ public class UnitOfMeasureController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:read')")
     public Set<UnitOfMeasureCommand> getAllUoms(){
         return unitOfMeasureService.listAllUoms();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:write')")
     public UnitOfMeasureCommand createUnitOfMeasure(@RequestBody UnitOfMeasureCommand unitOfMeasureCommand){
         return unitOfMeasureService.createUom(unitOfMeasureCommand);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:update')")
     public UnitOfMeasureCommand updateUnitOfMeasure(@PathVariable Long id, @RequestBody UnitOfMeasureCommand unitOfMeasureCommand){
         return unitOfMeasureService.updateUom(id, unitOfMeasureCommand);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteUnitOfMeasure(@PathVariable Long id){
         unitOfMeasureService.deleteUom(id);
     }

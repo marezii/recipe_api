@@ -2,6 +2,7 @@ package guru.springframework.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,7 @@ import static guru.springframework.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -26,9 +28,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register", "/auth").permitAll()
-                .antMatchers("/recipes/**").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -41,19 +43,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("password"))
-                .roles(ADMIN.name())
+                .authorities(ADMIN.getGrantedAuthorities())
                 .build();
 
         UserDetails user = User.builder()
                 .username("user")
                 .password(passwordEncoder.encode("password"))
-                .roles(USER.name())
+                .authorities(USER.getGrantedAuthorities())
                 .build();
 
         UserDetails maintainer = User.builder()
                 .username("maintainer")
                 .password(passwordEncoder.encode("password"))
-                .roles(MAINTAINER.name())
+                .authorities(MAINTAINER.getGrantedAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(
