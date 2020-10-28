@@ -1,5 +1,6 @@
 package guru.springframework.security;
 
+import guru.springframework.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import guru.springframework.services.ApplicationUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -28,12 +31,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilter(jwtUsernameAndPasswordAuthenticationFilter())
                 .authorizeRequests()
                 .antMatchers("/register", "/auth").permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+                .authenticated();
     }
 
     @Override
@@ -49,31 +54,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(passwordEncoder.encode("password"))
-//                .authorities(ADMIN.getGrantedAuthorities())
-//                .build();
-//
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password(passwordEncoder.encode("password"))
-//                .authorities(USER.getGrantedAuthorities())
-//                .build();
-//
-//        UserDetails maintainer = User.builder()
-//                .username("maintainer")
-//                .password(passwordEncoder.encode("password"))
-//                .authorities(MAINTAINER.getGrantedAuthorities())
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(
-//                admin,
-//                user,
-//                maintainer
-//        );
-//    }
+    @Bean
+    public JwtUsernameAndPasswordAuthenticationFilter jwtUsernameAndPasswordAuthenticationFilter() throws Exception{
+        JwtUsernameAndPasswordAuthenticationFilter filter = new JwtUsernameAndPasswordAuthenticationFilter();
+        filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth", "POST"));
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
+    }
 }
