@@ -1,17 +1,23 @@
 package guru.springframework.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import guru.springframework.security.ApplicationUserRole;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Setter
 public class ApplicationUser implements UserDetails {
 
     @Id
@@ -25,33 +31,18 @@ public class ApplicationUser implements UserDetails {
     @NonNull
     private String password;
 
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Authority> grantedAuthorities = new ArrayList();
 
     @Enumerated(value = EnumType.STRING)
     private ApplicationUserRole role;
 
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialNonExpired;
-    private boolean isEnabled;
+    private boolean isAccountNonExpired=true;
+    private boolean isAccountNonLocked=true;
+    private boolean isCredentialNonExpired=true;
+    private boolean isEnabled=true;
 
-    public ApplicationUser(Long id,
-                           String username,
-                           String password,
-                           List<Authority> grantedAuthorities,
-                           ApplicationUserRole role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.grantedAuthorities = grantedAuthorities;
-        this.role = role;
-        this.isAccountNonExpired = true;
-        this.isAccountNonLocked = true;
-        this.isCredentialNonExpired = true;
-        this.isEnabled = true;
-    }
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Transient
+    private Set<? extends GrantedAuthority> grantedAuthorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,6 +57,10 @@ public class ApplicationUser implements UserDetails {
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public ApplicationUserRole getRole(){
+        return role;
     }
 
     @Override
