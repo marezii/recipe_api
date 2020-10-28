@@ -1,6 +1,7 @@
 package guru.springframework.security.auth;
 
 import guru.springframework.security.ApplicationUserRole;
+import guru.springframework.security.passwordValidator.ValidPassword;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,7 @@ public class RegistrationRequest {
     private String username;
 
     @NotEmpty
+    @ValidPassword
     private String password;
 
     private ApplicationUserRole role;
