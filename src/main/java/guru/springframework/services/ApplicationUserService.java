@@ -5,5 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface ApplicationUserService extends UserDetailsService {
     ApplicationUser registerUser(ApplicationUser user);
+    void deleteUser(String username);
 
 }

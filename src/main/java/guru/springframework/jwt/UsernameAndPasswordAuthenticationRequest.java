@@ -1,6 +1,7 @@
 package guru.springframework.jwt;
 
 
+import guru.springframework.security.passwordValidator.ValidPassword;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,8 @@ import lombok.Setter;
 public class UsernameAndPasswordAuthenticationRequest {
 
     private String username;
-    private String password;
+
+    @ValidPassword
+    private String password; //Primer admin adminA1! maintainer maintainerM1! user userU1!!
 
 }

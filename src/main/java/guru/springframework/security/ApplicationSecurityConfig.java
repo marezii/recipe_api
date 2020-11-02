@@ -46,7 +46,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(jwtUsernameAndPasswordAuthenticationFilter())
                 .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig()), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/register", "/auth").permitAll()
+                .antMatchers("/register", "/auth", "/deleteAccount").permitAll()
                 .anyRequest()
                 .authenticated();
     }
@@ -75,6 +75,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtUsernameAndPasswordAuthenticationFilter filter = new JwtUsernameAndPasswordAuthenticationFilter(jwtConfig(), secretKey);
         filter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/auth", "POST"));
         filter.setAuthenticationManager(authenticationManagerBean());
+        //i am gay
         return filter;
     }
 }

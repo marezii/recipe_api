@@ -29,6 +29,12 @@ public class ApplicationUserServiceImpl implements ApplicationUserService {
 
     @Override
     @Transactional
+    public void deleteUser(String username) {
+        applicationUserRepository.deleteByUsername(username);
+    }
+
+    @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ApplicationUser user = applicationUserRepository.findByUsername(username);
         if(user == null){

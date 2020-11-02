@@ -27,7 +27,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
     private final SecretKey secretKey;
     private final JwtConfig jwtConfig;
 
-    public JwtTokenVerifier(SecretKey secretKey, JwtConfig jwtConfig){
+    public JwtTokenVerifier(SecretKey secretKey, JwtConfig jwtConfig) {
 
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
@@ -40,7 +40,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
 
         String authorizationHeader = httpServletRequest.getHeader(jwtConfig.getAuthorizationHeader());
 
-        if(Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())){
+        if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith(jwtConfig.getTokenPrefix())) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
@@ -65,7 +65,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, simpleGrantedAuthorities);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (JwtException e){
+        } catch (JwtException e) {
             throw new IllegalStateException(String.format("Token %s, cannot be trusted", token));
         }
 
