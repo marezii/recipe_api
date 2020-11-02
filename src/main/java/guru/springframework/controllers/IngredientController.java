@@ -27,7 +27,7 @@ public class IngredientController {
     //http://localhost:8080/ingredients/?recipeId=2
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('ingredient:read')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('INGREDIENT_READ')")
     public Set<IngredientCommand> listIngredients(@RequestParam(required = false) String recipeId){
         if(recipeId != null){
 
@@ -39,7 +39,7 @@ public class IngredientController {
     //http://localhost:8080/ingredients
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('ingredient:write')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('INGREDIENT_WRITE')")
     public IngredientCommand createIngredient(@RequestBody IngredientCommand ingredientCommand,
                                               @RequestParam(required = false) String recipeId){
         if(recipeId != null){
@@ -52,7 +52,7 @@ public class IngredientController {
     //http://localhost:8080/ingredients/30?uomID=8
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('ingredient:update')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('INGREDIENT_UPDATE')")
     public IngredientCommand addUOMtoIngredient(@PathVariable(value = "id") String ingredientId
                                                 , @RequestParam String uomID){
         return ingredientService.saveUOMtoIngredient(Long.valueOf(ingredientId), Long.valueOf(uomID));
@@ -60,7 +60,7 @@ public class IngredientController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('ingredient:update')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('INGREDIENT_UPDATE')")
     public IngredientCommand updateIngredient(@PathVariable String id, @RequestBody IngredientCommand ingredientCommand){
         return ingredientService.updateIngredient(Long.valueOf(id), ingredientCommand);
     }

@@ -22,7 +22,7 @@ public class RecipeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('recipe:read')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('RECIPE_READ')")
     public Set<Recipe> getAllRecipes(){
 
         return recipeService.getRecipes();
@@ -30,7 +30,7 @@ public class RecipeController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('recipe:read')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('RECIPE_READ')")
     public Recipe getRecipeById(@PathVariable String id){
 
         return recipeService.findById(new Long(id));
@@ -38,14 +38,14 @@ public class RecipeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('recipe:write')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('RECIPE_WRITE')")
     public RecipeCommand createRecipe(@RequestBody RecipeCommand command){
           return recipeService.saveRecipeCommand(command);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('recipe:update')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('RECIPE_UPDATE')")
     public RecipeCommand updateRecipe(@PathVariable Long id, @RequestBody RecipeCommand command){
         return recipeService.updateRecipeCommand(id, command);
     }

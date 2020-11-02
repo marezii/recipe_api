@@ -18,21 +18,21 @@ public class UnitOfMeasureController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:read')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('UOM_READ')")
     public Set<UnitOfMeasureCommand> getAllUoms(){
         return unitOfMeasureService.listAllUoms();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:write')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('UOM_WRITE')")
     public UnitOfMeasureCommand createUnitOfMeasure(@RequestBody UnitOfMeasureCommand unitOfMeasureCommand){
         return unitOfMeasureService.createUom(unitOfMeasureCommand);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('uom:update')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasAuthority('UOM_UPDATE')")
     public UnitOfMeasureCommand updateUnitOfMeasure(@PathVariable Long id, @RequestBody UnitOfMeasureCommand unitOfMeasureCommand){
         return unitOfMeasureService.updateUom(id, unitOfMeasureCommand);
     }
