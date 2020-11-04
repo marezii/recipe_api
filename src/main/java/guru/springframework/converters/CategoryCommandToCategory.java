@@ -8,11 +8,9 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by jt on 6/21/17.
- */
+
 @Component
-public class CategoryCommandToCategory implements Converter<CategoryCommand, Category>{
+public class CategoryCommandToCategory implements Converter<CategoryCommand, Category> {
 
     @Synchronized
     @Nullable

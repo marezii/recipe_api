@@ -58,7 +58,7 @@ public class Recipe extends JdkSerializationRedisSerializer implements Serializa
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "recipe_category",
-        joinColumns = @JoinColumn(name = "recipe_id"),
+            joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Category> categories = new HashSet<>();
@@ -70,7 +70,7 @@ public class Recipe extends JdkSerializationRedisSerializer implements Serializa
         }
     }
 
-    public Recipe addIngredient(Ingredient ingredient){
+    public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;

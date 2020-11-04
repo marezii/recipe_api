@@ -44,7 +44,7 @@ public class RecipeDeserializer extends StdDeserializer<Recipe> {
         Difficulty difficulty = Difficulty.valueOf(difficultyString);
 
         Notes notes = new Notes();
-        if(!node.get("notes").isNull()){
+        if (!node.get("notes").isNull()) {
             Long notesId = node.get("notes").get("id").asLong();
             String recipeNotes = node.get("notes").get("recipeNotes").asText();
             notes.setId(notesId);
@@ -100,7 +100,7 @@ public class RecipeDeserializer extends StdDeserializer<Recipe> {
         recipe.setPrepTime(prepTime);
         recipe.setDescription(description);
         recipe.setUrl(url);
-        if(notes != null){
+        if (notes != null) {
             recipe.setNotes(notes);
         }
         recipe.setDirections(directions);

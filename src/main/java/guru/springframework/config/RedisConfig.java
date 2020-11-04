@@ -36,7 +36,7 @@ public class RedisConfig {
                 .fromConnectionFactory(jedisConnectionFactory())
                 .cacheDefaults(
                         RedisCacheConfiguration.defaultCacheConfig()
-                                 .entryTtl(Duration.ofDays(1))
+                                .entryTtl(Duration.ofDays(1))
                                 .serializeValuesWith(jsonSerializer)
                 )
                 .build();
