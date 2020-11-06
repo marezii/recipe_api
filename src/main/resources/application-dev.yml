@@ -21,7 +21,7 @@ spring:
 security:
   oauth2:
     resource:
-      token-info-uri: http://localhost:9090/oauth/check_token
+#      token-info-uri: http://localhost:9090/oauth/check_token
       jwt:
         key-value: -----BEGIN PUBLIC KEY-----
           MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyZcyVVYkFatvAL4233m7
