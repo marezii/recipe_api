@@ -40,4 +40,5 @@ public class SecurityConfiguration extends ResourceServerConfigurerAdapter {
 //        tokenServices.setCheckTokenEndpointUrl(checkTokenURI);
 //        return tokenServices;
 //    }
+
 }

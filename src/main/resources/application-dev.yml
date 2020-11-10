@@ -22,16 +22,18 @@ security:
   oauth2:
     resource:
 #      token-info-uri: http://localhost:9090/oauth/check_token
-      jwt:
-        key-value: -----BEGIN PUBLIC KEY-----
-          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyZcyVVYkFatvAL4233m7
-          9pKGJNp3a4reCEu0E5ViAbWLMPYFl2Y2iiga8WYYn7j8geh6miSIp5vhD0XTj9Jt
-          ivT8Qc8+BFB6rCQccYA/CxNO28q483FyT3XhcK4qmcyawvL9rvgWiXAn91LAVowb
-          +HdwxaPYSht58VXbGzXLQZNcmVnr5haThJn2f/BfjUphpk1TyxWijFg7w68hqRW2
-          himTkqjJFDHpz9QLvAmzv79up02b+vql0N5HxAnHpFclAAZUmLlIuIfcNN2gF86f
-          /cYM7utJOnNfWzylf2vTbEA+WI4f85/oWB2Fht7Zq0QIWfrHfhcGfRmqTBQnIyud
-          gQIDAQAB
-          -----END PUBLIC KEY-----
+#      jwt:
+#        key-value: -----BEGIN PUBLIC KEY-----
+#          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyZcyVVYkFatvAL4233m7
+#          9pKGJNp3a4reCEu0E5ViAbWLMPYFl2Y2iiga8WYYn7j8geh6miSIp5vhD0XTj9Jt
+#          ivT8Qc8+BFB6rCQccYA/CxNO28q483FyT3XhcK4qmcyawvL9rvgWiXAn91LAVowb
+#          +HdwxaPYSht58VXbGzXLQZNcmVnr5haThJn2f/BfjUphpk1TyxWijFg7w68hqRW2
+#          himTkqjJFDHpz9QLvAmzv79up02b+vql0N5HxAnHpFclAAZUmLlIuIfcNN2gF86f
+#          /cYM7utJOnNfWzylf2vTbEA+WI4f85/oWB2Fht7Zq0QIWfrHfhcGfRmqTBQnIyud
+#          gQIDAQAB
+#          -----END PUBLIC KEY-----
+      jwk:
+        key-set-uri: http://localhost:9090/.well-known/jwks
     client:
       clientId: nistruct
       clientSecret: nistruct@mk2019!

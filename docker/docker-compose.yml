@@ -18,4 +18,13 @@ services:
   volumes:
    - "${REDIS_DATA}:/data"
   restart: ${REDIS_RESTART_POLICY}
+ redis_RSA:
+  image: "redis:${REDIS_VERSION}"
+  container_name: "${REDIS_RSA_CONTAINER_NAME}"
+  command: redis-server
+  ports:
+   - ${REDIS_RSA_PORT}:6379
+  volumes:
+   - "${REDIS_RSA_DATA}:/data"
+  restart: ${REDIS_RESTART_POLICY}
    
